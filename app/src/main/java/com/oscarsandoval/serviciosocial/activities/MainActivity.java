@@ -19,7 +19,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        currentFragment = new WelcomeFragment();
+        if (savedInstanceState == null){
+            currentFragment = new WelcomeFragment();
+            changeFragment(currentFragment);
+
+        }
+
 
     }
 

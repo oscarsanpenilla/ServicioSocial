@@ -1,7 +1,11 @@
 package com.oscarsandoval.serviciosocial.fragments;
 
 
+import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -24,6 +29,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private View rootView;
     private MapView mapView;
     private  GoogleMap gMap;
+
+
+    private Geocoder geocoder;
+    private Address addresses;
+
+    private MarkerOptions marker;
 
     public MapFragment() {
 
@@ -47,24 +58,53 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             mapView.onResume();
             mapView.getMapAsync(this);
         }
+        this.checkIfGPSIsEnabled();
+
+
+
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.checkIfGPSIsEnabled();
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
         gMap = googleMap;
-        gMap.setMinZoomPreference(20);
-        gMap.setMaxZoomPreference(24);
+        CameraUpdate zoom = CameraUpdateFactory.zoomTo(20);
 
-        LatLng facultad_ingenieria = new LatLng( 19.327028, -99.181376);
-        gMap.addMarker(new MarkerOptions().position(facultad_ingenieria).title("Anexo Ingenieria"));
 
-        CameraPosition camera = new CameraPosition.Builder()
-                .target(facultad_ingenieria)
-                .zoom(20)
-                .tilt(20)
-                .build();
-        gMap.animateCamera(CameraUpdateFactory.newCameraPosition(camera));
+        //Marcador 1
+        LatLng place1 = new LatLng( 19.327028, -99.181376);
+        marker = new MarkerOptions();
+        marker.position(place1);
+        marker.title("Marcador 1");
+        marker.draggable(false);
+        gMap.addMarker(marker);
+        gMap.moveCamera(CameraUpdateFactory.newLatLng(place1));
+        gMap.animateCamera(zoom);
 
+        gMap.animateCamera(zoom);
+
+    }
+
+    private void checkIfGPSIsEnabled(){
+        try {
+            int gpsSignal = Settings.Secure.getInt(getActivity().getContentResolver(), Settings.Secure.LOCATION_MODE);
+
+            if (gpsSignal== 0){
+                //El GPS no esta activado
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(intent);
+
+            }
+
+        } catch (Settings.SettingNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
