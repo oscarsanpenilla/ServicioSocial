@@ -6,11 +6,12 @@
     tools:context=".fragments.WelcomeFragment">
 
     <TextView
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="26dp"
-        android:text="Welcome" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="67dp"
+        android:text="Oscar Sandoval UNAM"
+        android:textSize="26dp" />
 
 </RelativeLayout>
