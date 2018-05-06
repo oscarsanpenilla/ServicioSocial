@@ -41,6 +41,8 @@ public class Place {
         if (this.distUserPlace <= this.radio)
         {
             this.isOnPlace = true;
+        }else{
+            this.isOnPlace = false;
         }
 
         return this.distUserPlace;
