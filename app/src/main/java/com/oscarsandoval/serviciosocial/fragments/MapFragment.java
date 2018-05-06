@@ -55,21 +55,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, View.On
     private MarkerOptions markerInstitutoInge;
     private MarkerOptions markerCasa;
 
-    //Latitud Longitud
+
     Place anexoIngenieria;
-
-    //Anexo y Contaduria
     Place anexoContaduria;
-
-    //Contaduria
     Place contaduria;
-
-    //Anexo Instituto Ingenieria
     Place institutoIngenieria;
-
-    //Prueba Casa
     Place casa;
-
     Place[] posMarkers;
 
 
@@ -90,14 +81,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, View.On
         fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         fab.setOnClickListener(this);
 
-        //Prueba
         textViewCoordDist = (TextView) rootView.findViewById(R.id.textViewCoordDist);
-
-
-
-
-
-
 
         return rootView;
     }
@@ -163,7 +147,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, View.On
         markerInstitutoInge = new MarkerOptions().position(institutoIngenieria.getPosition()).title("Instituto Ingenieria").draggable(false);
         gMap.addMarker(markerInstitutoInge);
 
-        casa = new Place( 19.275867  , -99.161295, 100,"Casa");
+        casa = new Place( 19.275867  , -99.161295, 10,"Casa");
         markerCasa = new MarkerOptions().position(casa.getPosition()).title("Casa").draggable(false);
         gMap.addMarker(markerCasa);
 
@@ -221,20 +205,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, View.On
             }
             currentLocation = location;
             if (currentLocation != null) {
-                createOrUpdateMarkerByLocation(location);
                 zoomToLocation(location);
             }
         }
 
     }
-    private void createOrUpdateMarkerByLocation(Location location) {
-        /*if (marker == null) {
-            marker = gMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).draggable(true));
-        } else {
-            marker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
-        }*/
 
-    }
 
     private void zoomToLocation(Location location) {
         camera = new CameraPosition.Builder()
@@ -247,35 +223,35 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, View.On
 
     }
 
-    private Place closestPlace(Location location, Place[] places){
-        double minDistance = 0;
-        int k =0;
-        double actualDist;
-        double prevDist;
-        for(int i = 1; i< places.length; i++){
-            actualDist = places[i].calcDistance(location);
-            prevDist = places[k].calcDistance(location);
-            if (prevDist>= actualDist){
-                k = i;
-            }
-        }
 
-        return places[k];
-    }
 
     @Override
     public void onLocationChanged(Location location) {
 
-        Place closestPlace = closestPlace(location,posMarkers);
-        double dist = closestPlace.calcDistance(location);
+        Place closestPlace = casa.closestPlace(location,posMarkers);
+        if (closestPlace.getIsOnPlace())
+        {
+            textViewCoordDist.setText(
+                    "\nLugar: " + closestPlace.getName() +
+                            "\nDistancia: " + closestPlace.calcDistance(location) +
+                            "\nLatitud: " + closestPlace.getLatitude()+
+                            "\nLongitud: " + closestPlace.getLongitude()
 
-        textViewCoordDist.setText(
-                "\nLugar: " + closestPlace.getName() +
-                "\nDistancia: " + closestPlace.calcDistance(location) +
-                        "\nLatitud: " + closestPlace.getLatitude()+
-                "\nLongitud: " + closestPlace.getLongitude()
+            );
 
-        );
+        }else{
+            textViewCoordDist.setText(
+                    "No estas dentro de un sitio de interes" +
+                            "\nLugar mas proximo " + closestPlace.getName() +
+                            "\nDistancia: " + closestPlace.calcDistance(location) +
+                            "\nLatitud: " + closestPlace.getLatitude()+
+                            "\nLongitud: " + closestPlace.getLongitude()
+
+            );
+
+        }
+
+
 
 
 

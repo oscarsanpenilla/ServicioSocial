@@ -38,13 +38,35 @@ public class Place {
         double c = 2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
         this.distUserPlace = earthRadius*c*1000;
 
+        if (this.distUserPlace <= this.radio)
+        {
+            this.isOnPlace = true;
+        }
+
         return this.distUserPlace;
+    }
+
+    public Place closestPlace(Location location, Place[] places){
+        double minDistance = 0;
+        int k =0;
+        double actualDist;
+        double prevDist;
+        for(int i = 1; i< places.length; i++){
+            actualDist = places[i].calcDistance(location);
+            prevDist = places[k].calcDistance(location);
+            if (prevDist>= actualDist){
+                k = i;
+            }
+        }
+
+        return places[k];
     }
 
     public String getName(){return this.name;}
     public LatLng getPosition(){return this.position;}
     public double getLatitude(){return this.latitude;}
     public double getLongitude(){return this.longitude;}
+    public boolean getIsOnPlace(){return this.isOnPlace;}
 
 
 
