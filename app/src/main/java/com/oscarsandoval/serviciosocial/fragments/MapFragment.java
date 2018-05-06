@@ -50,17 +50,23 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, View.On
 
     //Marcadores
     private MarkerOptions markerAnexo;
-    private MarkerOptions markerAnexoConta;
-    private MarkerOptions markerConta;
-    private MarkerOptions markerInstitutoInge;
+    private MarkerOptions markerPrincipalIngenieria;
+    private MarkerOptions markerArquitectura;
+    private MarkerOptions markerLasIslas;
     private MarkerOptions markerCasa;
+    private MarkerOptions markerOdontologia;
+    private MarkerOptions markerMedicina;
+    private MarkerOptions markerQuimica;
 
 
     Place anexoIngenieria;
-    Place anexoContaduria;
-    Place contaduria;
-    Place institutoIngenieria;
+    Place principalIngenieria;
+    Place arquitectura;
+    Place lasIslas;
     Place casa;
+    Place odontologia;
+    Place medicina;
+    Place quimica;
     Place[] posMarkers;
 
 
@@ -128,30 +134,46 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, View.On
 
         //Inilizacion Marcadores
         //Anexo Ingeniera
-        anexoIngenieria = new Place( 19.327345 , -99.18302, 100, "Anexo Ingeniería");
+        anexoIngenieria = new Place( 19.32649  , -99.182388, 122, "Anexo Ingeniería");
         markerAnexo = new MarkerOptions().position(anexoIngenieria.getPosition()).title("Anexo Ingeniera").draggable(false);
         gMap.addMarker(markerAnexo);
 
-        //Anexo y Contaduria
-        anexoContaduria = new Place( 19.326244  , -99.184004, 100,"Entre Anexo Ingenieria y Contaduria");
-        markerAnexoConta = new MarkerOptions().position(anexoContaduria.getPosition()).title("Anexo  Contaduria").draggable(false);
-        gMap.addMarker(markerAnexoConta);
+        //Principal de Ingenieria
+        principalIngenieria = new Place( 19.33139   , -99.184455, 115,"Principal de Ingenieria");
+        markerPrincipalIngenieria = new MarkerOptions().position(principalIngenieria.getPosition()).title("Principal de Ingenieria").draggable(false);
+        gMap.addMarker(markerPrincipalIngenieria);
 
-        //Contaduria
-        contaduria = new Place( 19.325494  , -99.184683,100,"Facultad Contaduria");
-        markerConta = new MarkerOptions().position(contaduria.getPosition()).title("Contaduria").draggable(false);
-        gMap.addMarker(markerConta);
+        //Facultad de Arquitectura
+        arquitectura = new Place( 19.331307   , -99.186625,100,"Facultad Arquitectura");
+        markerArquitectura = new MarkerOptions().position(arquitectura.getPosition()).title("Facultad Arquitectura").draggable(false);
+        gMap.addMarker(markerArquitectura);
 
-        //Anexo Instituto Ingenieria
-        institutoIngenieria = new Place( 19.328855  , -99.181801, 30, "Instituto de Ingenieria");
-        markerInstitutoInge = new MarkerOptions().position(institutoIngenieria.getPosition()).title("Instituto Ingenieria").draggable(false);
-        gMap.addMarker(markerInstitutoInge);
+        //Las Islas
+        lasIslas = new Place( 19.332878   , -99.18515, 100, "Las Islas");
+        markerLasIslas = new MarkerOptions().position(lasIslas.getPosition()).title("Las Islas").draggable(false);
+        gMap.addMarker(markerLasIslas);
 
-        casa = new Place( 19.275867  , -99.161295, 10,"Casa");
+        //Facultad de Odontologia
+        odontologia = new Place( 19.334285    , -99.181514, 75, "Facultad de Odontologia");
+        markerOdontologia = new MarkerOptions().position(odontologia.getPosition()).title("Facultad de Odontologia").draggable(false);
+        gMap.addMarker(markerOdontologia);
+
+        //Facultad de Medicina
+        medicina = new Place(19.333186 ,-99.180454,90,"Facultad de Medicina");
+        markerMedicina = new MarkerOptions().position(medicina.getPosition()).title("Facultad de Medicina").draggable(false);
+        gMap.addMarker(markerMedicina);
+
+        //Facultad de Quimica
+        quimica = new Place(19.332061,-99.18157,90,"Facultad de Quimica" );
+        markerQuimica = new MarkerOptions().position(quimica.getPosition()).title("Facultad de Quimica").draggable(false);
+        gMap.addMarker(markerQuimica);
+
+        //Home
+        casa = new Place( 19.275867  , -99.161295, 50,"Casa");
         markerCasa = new MarkerOptions().position(casa.getPosition()).title("Casa").draggable(false);
         gMap.addMarker(markerCasa);
 
-        Place[] markers = {anexoContaduria,casa,anexoIngenieria,institutoIngenieria,contaduria};
+        Place[] markers = {principalIngenieria,casa,anexoIngenieria, lasIslas, arquitectura,odontologia,medicina,quimica};
         this.posMarkers = markers;
 
     }
